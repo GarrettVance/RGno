@@ -266,6 +266,7 @@
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Common\DeviceResources.cpp" />
+    <ClCompile Include="Content\Asynchronous.cpp" />
     <ClCompile Include="Content\Hvy2DHUD.cpp" />
     <ClCompile Include="Math\MvyH_HyperbolicMath.cpp" />
     <ClCompile Include="Math\Observer.cpp" />

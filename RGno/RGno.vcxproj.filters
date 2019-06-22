@@ -67,6 +67,9 @@
     <ClCompile Include="Math\Observer.cpp">
       <Filter>Math</Filter>
     </ClCompile>
+    <ClCompile Include="Content\Asynchronous.cpp">
+      <Filter>Content</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />

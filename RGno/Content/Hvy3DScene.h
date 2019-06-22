@@ -110,6 +110,9 @@ namespace HvyDXBase
         void                        Coords_SetMouseHover(std::complex<double> physMouse);
 
 
+        void                        GoFileOpenPicker(); 
+
+
 
 
         void                        CalculateCircumradius();  //  intrinsic geometry per Schlafli Symbol; 

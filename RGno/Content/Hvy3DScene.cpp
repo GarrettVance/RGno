@@ -384,6 +384,43 @@ void Hvy3DScene::Update(DX::StepTimer const& timer)
     }
 
 
+
+
+    if (kb.O)
+    {
+        if (!g0_debouncer_processed_keyboard)
+        {
+            g0_debouncer_processed_keyboard = true;
+
+            // e_auto_roving = false;
+
+            // eInvalidated = false; // halt CS Compute Shader invocation;
+
+
+            GoFileOpenPicker();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //===================================================================
     //===================================================================
 
