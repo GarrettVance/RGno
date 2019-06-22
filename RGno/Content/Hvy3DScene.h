@@ -38,6 +38,8 @@ namespace HvyDXBase
         DirectX::XMFLOAT4       uniform_color0;
         DirectX::XMFLOAT4       uniform_color1;
         DirectX::XMFLOAT4       uniform_color2;
+
+        DirectX::XMUINT4        color_inverted;
     };
 
 
@@ -187,7 +189,9 @@ namespace HvyDXBase
 
 
         float                                                   m_percentOfTrick;
-        bool                                                    e_RotatedFrame;
+
+        bool                                                    e_invertColor;
+
         bool                                                    e_Perambulation;
 
 

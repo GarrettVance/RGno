@@ -27,7 +27,9 @@ Hvy3DScene::Hvy3DScene(const std::shared_ptr<DX::DeviceResources>& deviceResourc
     g0_debouncer_processed_mouse(false),
     g0_debouncer_processed_keyboard(false),
 
-    e_RotatedFrame(false), 
+    e_invertColor(false), 
+
+
     e_Perambulation(false), 
 
     z_mouse(0.00, 0.00), 
@@ -347,18 +349,18 @@ void Hvy3DScene::Update(DX::StepTimer const& timer)
 
 
 
-    if (kb.H)
+    if (kb.I)
     {
         if (!g0_debouncer_processed_keyboard)
         {
             g0_debouncer_processed_keyboard = true;
-            if (e_RotatedFrame == false)
+            if (e_invertColor == false)
             {
-                e_RotatedFrame = true;
+                e_invertColor = true;
             }
-            else if (e_RotatedFrame == true)
+            else if (e_invertColor == true)
             {
-                e_RotatedFrame = false;
+                e_invertColor = false;
             }
         }
     }
@@ -585,8 +587,27 @@ void Hvy3DScene::conbufSetDataHC()
 
     XMFLOAT4 uniform_color2 = XMFLOAT4(0.f, 0.f, 0.f, 1.f ); // blue; Color color2 is for Fundamental Domain;
 
+    XMUINT4 isInverted = XMUINT4(
+        (e_invertColor == true) ? 1 : 0, 
+        0, 
+        0, 
+        0
+    );
 
-    conbuf7Struct tmp7Struct = { z0XF2, dirXF2, schlafli_p, schlafli_q, (float)uniform_x0, uniform_oneOverScale, uniform_color0, uniform_color1, uniform_color2 }; 
+
+
+    conbuf7Struct tmp7Struct = { 
+        z0XF2, 
+        dirXF2, 
+        schlafli_p, 
+        schlafli_q, 
+        (float)uniform_x0, 
+        uniform_oneOverScale, 
+        uniform_color0, 
+        uniform_color1, 
+        uniform_color2, 
+        isInverted
+    }; 
 
 
     D3D11_MAPPED_SUBRESOURCE mapped_subresource_cb7;

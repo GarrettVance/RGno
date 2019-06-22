@@ -20,6 +20,8 @@ cbuffer conbuf7 : register(b1)
     float4      col1;  // Color for the "negative" Fundamental Domain;
 
     float4      col2;
+
+    uint4       isInverting;
 }
 
 
@@ -54,16 +56,15 @@ static const int loop_limitA = 100;  // TODO:  original loop_limit is 100;
 
 float4 invertColorRGBA(float4 c0)
 {
-    return c0; // undo;
-
-    float4 antiColor = float4(
-        1.0 - c0.x,
-        1.0 - c0.y,
-        1.0 - c0.z,
-        c0.w  //  Leave c0.w  alpha channel unchanged;
-        );
-
-    return antiColor;
+    if (isInverting.x == 0)
+    {
+        return c0; // undo;
+    }
+    else
+    {
+        float4 antiColor = float4(1.0 - c0.x, 1.0 - c0.y, 1.0 - c0.z, c0.w);
+        return antiColor;
+    }
 }
 
 
