@@ -98,10 +98,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="HLSL\ps_01_FunDomain.hlsl">
+    <FxCompile Include="HLSL\FundamentalDomainPixelShader.hlsl">
       <Filter>HLSL</Filter>
     </FxCompile>
-    <FxCompile Include="HLSL\vs_2D_vertex_shader.hlsl">
+    <FxCompile Include="HLSL\FundamentalDomainVertexShader.hlsl">
       <Filter>HLSL</Filter>
     </FxCompile>
   </ItemGroup>

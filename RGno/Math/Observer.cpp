@@ -1,28 +1,25 @@
-﻿
-
-
+﻿//              
+//              
+//      Garrett Vance 20191022 0621 
+//              
+//      file: Observer.cpp 
+//      
+//      Attribution: Much of the mathematical content of 
+//      the RGno project is derived from published work 
+//      by Arnaud Cheritat. 
+//      
+//      Please see  https://www.math.univ-toulouse.fr/~cheritat/AppletsDivers/Klein/
+//      for Arnaud Cheritat's excellent javascript Klein Quartic. 
+//              
 
 #include "pch.h"
-
-
 #include "..\Content\Hvy3DScene.h"
-
-
 #include "..\Common\DirectXHelper.h"
-
 #include "MvyH_HyperbolicMath.h"
 
 using namespace HvyDXBase; 
 using namespace DirectX;
 using namespace Windows::Foundation;
-
-
-
-
-
-
-
-
 
 
 
@@ -35,27 +32,14 @@ void HvyDXBase::Hvy3DScene::CalculateCircumradius()
     //  and the central heptagon has circumradius ~ 0.300 742 618 746...
     //      
 
-    //  ghv: hazard: don't try using DirectX::XM_PI here, that's only good for rough approximation...
-
-
     double circumradius = std::tanh(
         0.50 * std::acosh(1.00 / (tan(konst_pi / (double)(this->schlafli_p)) * std::tan(konst_pi / (double)(this->schlafli_q))))
     );
-
 
     uniform_x0 = circumradius; 
 
     uniform_z0 = std::complex<double>(circumradius, 0.00); 
 }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -68,20 +52,6 @@ HvyDXBase::HvyPlex complexScale(double aScalar, HvyDXBase::HvyPlex z)
 
     return retval;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 void HvyDXBase::Hvy3DScene::correct_version_RGno()
@@ -143,17 +113,12 @@ void HvyDXBase::Hvy3DScene::correct_version_RGno()
                 complex_neg(w)
             );
 
-
-
             uniform_dir = complex_neg(uniform_dir) * derivativePhi(complex_neg(w), cxCircumradius);
         }
 
     } //  Closes "for" loop; 
 
-
     uniform_dir = HvyDXBase::complex_normalize(uniform_dir); // bug fixed: Must capture the return value of complex_normalize!!!
-
-
 
     //   
     //  ghv: The following tests using "isnan()" are shown copied verbatim and commented out,
@@ -162,63 +127,41 @@ void HvyDXBase::Hvy3DScene::correct_version_RGno()
     //  if ( isnan(uniform_z0.real()) || isnan(uniform_z0.real()) || isnan(uniform_dir.real()) || isnan(uniform_dir.real()) )
     //      
 
-
     if (isnan(uniform_z0.real()) || isnan(uniform_z0.imag()) || isnan(uniform_dir.real()) || isnan(uniform_dir.imag()))
     {
         uniform_z0 = std::complex<double>(0.00, 0.00); 
         uniform_dir = std::complex<double>(1.00, 0.00); 
     }
-
 }
-
-
-
-
-
-
-
 
 
 
 void HvyDXBase::Hvy3DScene::anim_callback_version_RGno()
 {
-
     HvyPlex z = std::complex<double>(0.025, 0.00) * z_mouse;
 
-
     double d = std::norm(z);  // real * real + imag * imag;
-
 
     if (d > 0.25) 
     { 
         z = std::complex<double>(0.50 / sqrt(d), 0.00) * z; 
     }
 
-
     z = z * uniform_dir;
 
-
     uniform_dir = uniform_dir * HvyDXBase::derivativePhi(z, uniform_z0);
-
 
     HvyPlex z1 = HvyDXBase::hyper_translate(
         uniform_z0, 
         z
     );
 
-
     uniform_dir = uniform_dir * std::complex<double>(1.00 / std::abs(uniform_dir), 0.00);
-
 
     uniform_z0 = z1;
 
-
     correct_version_RGno();
 }
-
-
-
-
 
 
 
