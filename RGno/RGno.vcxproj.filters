@@ -95,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="RGno_TemporaryKey.pfx" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="HLSL\ps_01_FunDomain.hlsl">
