@@ -1,10 +1,19 @@
+//              
+//              
+//      Garrett Vance 20191022 0621 
+//              
+//      file: Observer.cpp 
 //      
+//      Attribution: Much of the mathematical content of 
+//      the RGno project is derived from published work 
+//      by Arnaud Cheritat. 
 //      
-
+//      Please see  https://www.math.univ-toulouse.fr/~cheritat/AppletsDivers/Klein/
+//      for Arnaud Cheritat's excellent javascript Klein Quartic. 
+//              
 
 Texture2D           ColorTexture        :       register(t0);
 SamplerState        LinearSampler       :       register(s0);
-
 
 cbuffer conbuf7 : register(b1)
 {
@@ -19,7 +28,6 @@ cbuffer conbuf7 : register(b1)
     float4      col2;
     uint4       isInverting;
 }
-
 
 struct PixelShaderInput
 {
