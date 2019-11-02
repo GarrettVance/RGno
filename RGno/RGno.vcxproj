@@ -256,7 +256,7 @@
     <ClInclude Include="App.h" />
     <ClInclude Include="Common\DeviceResources.h" />
     <ClInclude Include="Content\Hvy2DHUD.h" />
-    <ClInclude Include="Math\MvyH_HyperbolicMath.h" />
+    <ClInclude Include="HyperbolicMethods\HyperbolicMethods.h" />
     <ClInclude Include="RGnoMain.h" />
     <ClInclude Include="Common\DirectXHelper.h" />
     <ClInclude Include="Common\StepTimer.h" />
@@ -268,7 +268,7 @@
     <ClCompile Include="Common\DeviceResources.cpp" />
     <ClCompile Include="Content\Asynchronous.cpp" />
     <ClCompile Include="Content\Hvy2DHUD.cpp" />
-    <ClCompile Include="Math\MvyH_HyperbolicMath.cpp" />
+    <ClCompile Include="HyperbolicMethods\HyperbolicMethods.cpp" />
     <ClCompile Include="Math\Observer.cpp" />
     <ClCompile Include="RGnoMain.cpp" />
     <ClCompile Include="Content\Hvy3DScene.cpp" />

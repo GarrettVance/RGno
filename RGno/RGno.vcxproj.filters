@@ -53,6 +53,9 @@
     <Filter Include="Math">
       <UniqueIdentifier>{709c9261-1b33-4254-abb2-11fecf26a5df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="HyperbolicMethods">
+      <UniqueIdentifier>{dd4776aa-5963-45af-9fc9-fd03c4d3f625}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
@@ -61,14 +64,14 @@
     <ClCompile Include="Content\Hvy2DHUD.cpp">
       <Filter>Content</Filter>
     </ClCompile>
-    <ClCompile Include="Math\MvyH_HyperbolicMath.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
     <ClCompile Include="Math\Observer.cpp">
       <Filter>Math</Filter>
     </ClCompile>
     <ClCompile Include="Content\Asynchronous.cpp">
       <Filter>Content</Filter>
+    </ClCompile>
+    <ClCompile Include="HyperbolicMethods\HyperbolicMethods.cpp">
+      <Filter>HyperbolicMethods</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -78,8 +81,8 @@
     <ClInclude Include="Content\Hvy2DHUD.h">
       <Filter>Content</Filter>
     </ClInclude>
-    <ClInclude Include="Math\MvyH_HyperbolicMath.h">
-      <Filter>Math</Filter>
+    <ClInclude Include="HyperbolicMethods\HyperbolicMethods.h">
+      <Filter>HyperbolicMethods</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

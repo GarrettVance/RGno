@@ -15,7 +15,7 @@
 #include "pch.h"
 #include "..\Content\Hvy3DScene.h"
 #include "..\Common\DirectXHelper.h"
-#include "MvyH_HyperbolicMath.h"
+#include "..\HyperbolicMethods\HyperbolicMethods.h"
 
 using namespace HvyDXBase; 
 using namespace DirectX;
@@ -23,35 +23,6 @@ using namespace Windows::Foundation;
 
 
 
-
-void HvyDXBase::Hvy3DScene::CalculateCircumradius()
-{
-    //  This method translates a Schlafli Symbol {p, q} 
-    //  into the circumradius of the tiling's central polygon.
-    //  Example: Schlafli {7, 3} is a heptagonal tiling, 
-    //  and the central heptagon has circumradius ~ 0.300 742 618 746...
-    //      
-
-    double circumradius = std::tanh(
-        0.50 * std::acosh(1.00 / (tan(konst_pi / (double)(this->schlafli_p)) * std::tan(konst_pi / (double)(this->schlafli_q))))
-    );
-
-    uniform_x0 = circumradius; 
-
-    uniform_z0 = std::complex<double>(circumradius, 0.00); 
-}
-
-
-
-HvyDXBase::HvyPlex complexScale(double aScalar, HvyDXBase::HvyPlex z)
-{
-    std::complex<double> retval = std::complex<double>(
-        aScalar * z.real(),
-        aScalar * z.imag()
-        );
-
-    return retval;
-}
 
 
 void HvyDXBase::Hvy3DScene::correct_version_RGno()
@@ -70,20 +41,19 @@ void HvyDXBase::Hvy3DScene::correct_version_RGno()
         {
             double n = std::floor(s + 0.50);
 
-            HvyPlex ro = HvyDXBase::complex_ooo(-tau / schlafli_q * n); // swapped p and q; 
+            HvyPlex ro = HvyDXBase::HC_Polar_D(-tau / schlafli_q * n); // swapped p and q; 
 
             uniform_z0 = uniform_z0 * ro;
 
             uniform_dir = uniform_dir * ro;
         }
 
-        HvyPlex w = complex_neg(
-            HvyDXBase::hyper_translate(
-                complex_neg(cxCircumradius),
+        HvyPlex w = HC_Negate_D(
+            HvyDXBase::HC_HyperbolicTranslation_D(
+                HC_Negate_D(cxCircumradius),
                 uniform_z0
             )
         );
-
 
         t = std::arg(w);
 
@@ -95,30 +65,32 @@ void HvyDXBase::Hvy3DScene::correct_version_RGno()
         }
         else
         {
-            uniform_dir = complex_neg(
-                uniform_dir * derivativePhi(uniform_z0, complex_neg(cxCircumradius))
+            uniform_dir = HC_Negate_D(
+                // uniform_dir * derivativePhi(uniform_z0, HC_Negate_D(cxCircumradius))
+                uniform_dir * HC_TranslationSpeed_D(HC_Negate_D(cxCircumradius), uniform_z0)
             );
 
             double n = std::floor(s + 0.50);
 
-            HvyPlex ro = HvyDXBase::complex_ooo(-tau / schlafli_p * n);  // swapped p and q;
+            HvyPlex ro = HvyDXBase::HC_Polar_D(-tau / schlafli_p * n);  // swapped p and q;
 
             w = w * ro;
 
             uniform_dir = uniform_dir * ro;
 
 
-            uniform_z0 = HvyDXBase::hyper_translate(
+            uniform_z0 = HvyDXBase::HC_HyperbolicTranslation_D(
                 cxCircumradius, 
-                complex_neg(w)
+                HC_Negate_D(w)
             );
 
-            uniform_dir = complex_neg(uniform_dir) * derivativePhi(complex_neg(w), cxCircumradius);
+            //  uniform_dir = HC_Negate_D(uniform_dir) * derivativePhi(HC_Negate_D(w), cxCircumradius);
+            uniform_dir = HC_Negate_D(uniform_dir) * HC_TranslationSpeed_D(cxCircumradius, HC_Negate_D(w));
         }
 
     } //  Closes "for" loop; 
 
-    uniform_dir = HvyDXBase::complex_normalize(uniform_dir); // bug fixed: Must capture the return value of complex_normalize!!!
+    uniform_dir = HvyDXBase::HC_ComplexSign_D(uniform_dir); // bug fixed: Must capture the return value of complex_normalize!!!
 
     //   
     //  ghv: The following tests using "isnan()" are shown copied verbatim and commented out,
@@ -136,6 +108,10 @@ void HvyDXBase::Hvy3DScene::correct_version_RGno()
 
 
 
+
+
+
+
 void HvyDXBase::Hvy3DScene::anim_callback_version_RGno()
 {
     HvyPlex z = std::complex<double>(0.025, 0.00) * z_mouse;
@@ -149,9 +125,10 @@ void HvyDXBase::Hvy3DScene::anim_callback_version_RGno()
 
     z = z * uniform_dir;
 
-    uniform_dir = uniform_dir * HvyDXBase::derivativePhi(z, uniform_z0);
+    // uniform_dir = uniform_dir * HvyDXBase::derivativePhi(z, uniform_z0);
+    uniform_dir = uniform_dir * HvyDXBase::HC_TranslationSpeed_D(uniform_z0, z);
 
-    HvyPlex z1 = HvyDXBase::hyper_translate(
+    HvyPlex z1 = HvyDXBase::HC_HyperbolicTranslation_D(
         uniform_z0, 
         z
     );

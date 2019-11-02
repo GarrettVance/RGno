@@ -113,12 +113,6 @@ namespace HvyDXBase
         void                        GoFileOpenPicker(); 
 
 
-
-
-        void                        CalculateCircumradius();  //  intrinsic geometry per Schlafli Symbol; 
-
-
-
         void                        anim_callback_version_RGno();
 
 

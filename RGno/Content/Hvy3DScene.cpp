@@ -15,6 +15,7 @@
 #include "pch.h"
 #include "Hvy3DScene.h"
 #include "..\Common\DirectXHelper.h"
+#include "HyperbolicMethods\HyperbolicMethods.h"
 
 using namespace HvyDXBase; 
 using namespace DirectX;
@@ -50,7 +51,9 @@ Hvy3DScene::Hvy3DScene(const std::shared_ptr<DX::DeviceResources>& deviceResourc
     //  p = 4, q = 5 okay;
     //          
 
-    schlafli_p(3),  schlafli_q(14), 
+    // schlafli_p(3),  schlafli_q(14), 
+
+    schlafli_p(7),  schlafli_q(3), 
 
     animate(false),
 
@@ -68,7 +71,9 @@ Hvy3DScene::Hvy3DScene(const std::shared_ptr<DX::DeviceResources>& deviceResourc
 
     CreateWindowSizeDependentResources();
 
-    CalculateCircumradius();
+
+    uniform_x0 = HvyDXBase::HC_CircumradiusFromSchlafli_D(schlafli_p, schlafli_q);
+    uniform_z0 = std::complex<double>(uniform_x0, 0.00); 
 }
 
 
@@ -143,7 +148,8 @@ void Hvy3DScene::DynamicSchlafli(int p, int q)
     schlafli_p = p;
     schlafli_q = q; 
 
-    CalculateCircumradius();
+    uniform_x0 = HvyDXBase::HC_CircumradiusFromSchlafli_D(schlafli_p, schlafli_q);
+    uniform_z0 = std::complex<double>(uniform_x0, 0.00); 
 }
 
 
